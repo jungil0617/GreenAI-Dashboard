@@ -197,8 +197,8 @@ async def ingest_detection(
 
 @app.get("/stats", response_model=StatsResponse)
 async def get_stats(
-    from_time: Optional[str] = Query(None, description="시작 시각 (ISO 8601)"),
-    to_time: Optional[str] = Query(None, description="종료 시각 (ISO 8601)"),
+    from_time: Optional[str] = Query(None, alias="from", description="시작 시각 (ISO 8601)"),
+    to_time: Optional[str] = Query(None, alias="to", description="종료 시각 (ISO 8601)"),
     zone: Optional[str] = Query(None, description="구역 필터 (예: A구역)"),
     db: Session = Depends(get_db)
 ):
