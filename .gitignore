@@ -12,6 +12,7 @@ venv/
 env/
 ENV/
 .venv
+tempCodeRunnerFile.py
 
 # Database
 *.db
