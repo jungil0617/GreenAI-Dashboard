@@ -217,7 +217,7 @@ async def get_stats(
             start_time = datetime.fromisoformat(from_time.replace('Z', '+00:00'))
         else:
             # 기본값: 최근 5분
-            start_time = datetime.utcnow().replace(minute=datetime.utcnow().minute - 5)
+            start_time = datetime.utcnow() - timedelta(minutes=5)
 
         if to_time:
             end_time = datetime.fromisoformat(to_time.replace('Z', '+00:00'))
