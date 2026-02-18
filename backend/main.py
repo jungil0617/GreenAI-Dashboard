@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, Query, WebSocket, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional, List
 from pydantic import BaseModel, Field
 import asyncio
@@ -279,7 +279,7 @@ async def broadcast_latest_kpi(db: Session):
     try:
         # 최근 5분 데이터 조회
         end_time = datetime.utcnow()
-        start_time = end_time.replace(minute=end_time.minute - 5)
+        start_time = end_time - timedelta(minutes=5)
 
         query = db.query(Detection).filter(
             Detection.timestamp >= start_time,
@@ -330,7 +330,7 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             # 최근 5분 데이터 조회
             end_time = datetime.utcnow()
-            start_time = end_time.replace(minute=max(0, end_time.minute - 5))
+            start_time = end_time - timedelta(minutes=5)
 
             query = db.query(Detection).filter(
                 Detection.timestamp >= start_time,
